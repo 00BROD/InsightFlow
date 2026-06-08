@@ -76,11 +76,14 @@ export function toVegaSpec(choice: ChartChoice, data: Row[]) {
     return { ...base, mark: { type: 'bar', color: '#6ee7b7' },
       encoding: { x: { field: choice.x.name, bin: true, type: 'quantitative' }, y: { aggregate: 'count', type: 'quantitative' } } };
   }
+  // Aggregate the metric so a time series collapses to one value per bucket
+  // (raw rows across categories would otherwise draw a sawtooth, not a trend).
+  const aggregate = choice.mark === 'line' || choice.mark === 'bar' ? 'sum' : undefined;
   const enc: any = {
-    x: { field: choice.x.name, type: choice.x.type },
-    y: { field: choice.y!.name, type: choice.y!.type, aggregate: choice.mark === 'bar' ? 'sum' : undefined },
+    x: { field: choice.x.name, type: choice.x.type, ...(choice.x.type === 'temporal' ? { timeUnit: 'yearmonthdate' } : {}) },
+    y: { field: choice.y!.name, type: 'quantitative', aggregate, title: aggregate ? `${aggregate} of ${choice.y!.name}` : choice.y!.name },
   };
-  return { ...base, mark: { type: choice.mark, color: '#6ee7b7', point: choice.mark === 'line', filled: true },
+  return { ...base, mark: { type: choice.mark, color: '#6ee7b7', point: choice.mark === 'line', filled: true, tooltip: true },
     encoding: enc };
 }
 
