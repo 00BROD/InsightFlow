@@ -4,6 +4,8 @@ Drop a CSV → InsightFlow infers each field's type, picks a sensible chart, sur
 
 **[Live demo →](https://insightflow-navy.vercel.app)**
 
+![InsightFlow](docs/screenshot.png)
+
 ## What it does
 
 - **Field-type inference** — every column classified as `quantitative`, `temporal`, or `nominal` from value patterns (numeric share, date parsing, cardinality), not header names.
