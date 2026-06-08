@@ -2,7 +2,7 @@
 
 Drop a CSV → InsightFlow infers each field's type, picks a sensible chart, surfaces KPIs, and lets you export. Runs entirely client-side — no data leaves the browser.
 
-**[Live demo →](https://insightflow-00brod.vercel.app)**
+**[Live demo →](https://insightflow-navy.vercel.app)**
 
 ## What it does
 
